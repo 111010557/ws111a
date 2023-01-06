@@ -4,54 +4,90 @@ export function layout(title, content) {
     <head>
       <title>${title}</title>
       <style>
-        body {
-          padding: 80px;
-          font: 16px Helvetica, Arial;
-        }
+      body {
+        padding: 50px;
+        font: 16px Helvetica, Arial;
+        background-color: burlywood;
     
-        h1 {
-          font-size: 2em;
-        }
+      }
     
-        h2 {
-          font-size: 1.2em;
-        }
+      h1 {
+        font-size: 5em;
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
     
-        #posts {
-          margin: 0;
-          padding: 0;
-        }
+      h2 {
+        font-size: 1.2em;
+      }
     
-        #posts li {
-          margin: 40px 0;
-          padding: 0;
-          padding-bottom: 20px;
-          border-bottom: 1px solid #eee;
-          list-style: none;
-        }
+      #posts {
+        margin: 0;
+        padding: 0;
+      }
     
-        #posts li:last-child {
-          border-bottom: none;
-        }
+      #posts li {
+        margin: 40px 0;
+        padding: 0;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        list-style: none;
+      }
     
-        textarea {
-          width: 500px;
-          height: 300px;
-        }
+      #posts li:last-child {
+        border-bottom: none;
+      }
     
-        input[type=text],
-        textarea {
-          border: 1px solid #eee;
-          border-top-color: #ddd;
-          border-left-color: #ddd;
-          border-radius: 2px;
-          padding: 15px;
-          font-size: .8em;
-        }
+      textarea {
+        width: 500px;
+        height: 300px;
+      }
     
-        input[type=text] {
-          width: 500px;
-        }
+      input[type=text],
+      textarea {
+        border: 1px solid #eee;
+        border-top-color: #ddd;
+        border-left-color: #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        font-size: .8em;
+      }
+    
+      input[type=text] {
+        width: 500px;
+      }
+    .container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .date{
+        width: 500px;
+        padding: 15px;
+        border-radius: 10px;
+    }  
+    .create{
+        display: flex;
+        align-items: center;
+        justify-content: right;
+    }
+    
+    .btn
+    {
+        background-color: limegreen;
+        padding:15px 30px;
+        font-size:20px;
+        border-radius:30px;
+        cursor:pointer;
+        border:3px solid darkgreen;
+        color: white; 
+        text-align: center;
+    }
+    .btn:hover
+    {
+        background-color:#5cbf2a;
+    }
       </style>
     </head>
     <body>
@@ -74,32 +110,37 @@ export function layout(title, content) {
       `)
     }
     let content = `
-    <h1>Posts</h1>
-    <p>You have <strong>${posts.length}</strong> posts!</p>
-    <p><a href="/post/new">Create a Post</a></p>
-    <ul id="posts">
-      ${list.join('\n')}
-    </ul>
+        <h1>Posts</h1>
+        <p>You have <strong>${posts.length}</strong> posts!</p>
+        <p><a href="/post/new">Create a Post</a></p>
+        <ul id="posts">
+          ${list.join('\n')}
+        </ul>
     `
     return layout('Posts', content)
   }
   
   export function newPost() {
     return layout('New Post', `
-    <h1>New Post</h1>
-    <p>Create a new post.</p>
-    <form action="/post" method="post">
-      <p><input type="text" placeholder="Title" name="title"></p>
-      <p><textarea placeholder="Contents" name="body"></textarea></p>
-      <p><input type="submit" value="Create"></p>
-    </form>
+    <section id="content">
+    <div class="container">
+        <h1>New Post</h1>
+        <p>Create a new post.</p>
+        <form action="/post" method="post">
+        <p><input type="text" placeholder="Title" name="title"></p>
+        <p><input type="date" placeholder="date" name="date" class="date"></p>
+        <p><textarea placeholder="Contents" name="body"></textarea></p>
+        <div class="create"><p><input type="submit" value="Create" class="btn"></p></div>
+        </form>
+    </div>
+  </section>
     `)
   }
   
   export function show(post) {
     return layout(post.title, `
       <h1>${post.title}</h1>
-      <pre>${post.body}</pre>
+      <p>${post.date}</h1>
+      <p>${post.body}</p>
     `)
   }
-  
